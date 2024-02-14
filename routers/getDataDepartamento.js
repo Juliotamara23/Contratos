@@ -1,9 +1,11 @@
+const express = require('express');
+const router = express.Router();
 const https = require('https');
-const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const getFilteredJsonFromUrl = (jsonUrl) => {
+//Función para obtener y filtrar datos del departamento desde una URL JSON
+const getDataDepartamento = (jsonUrl) => {
   return new Promise((resolve, reject) => {
     https.get(jsonUrl, (response) => {
       let data = '';
@@ -27,6 +29,7 @@ const getFilteredJsonFromUrl = (jsonUrl) => {
   });
 };
 
+// Función para servir archivos estáticos desde el sistema de archivos
 const serveStaticFile = (req, res) => {
   const filePath = path.join(__dirname, req.url);
 
@@ -41,25 +44,19 @@ const serveStaticFile = (req, res) => {
   });
 };
 
-const server = http.createServer(async (req, res) => {
-  if (req.url === '/' && req.method === 'GET') {
-    const jsonUrl = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.min.json';
+// Definición de la ruta principal '/'
+router.get('/', async (req, res) => {
+  const jsonUrl = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.min.json';
 
-    try {
-      const filteredJsonData = await getFilteredJsonFromUrl(jsonUrl);
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify(filteredJsonData));
-    } catch (error) {
-      console.error('Error al obtener o parsear el JSON:', error);
-      res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end('Error interno del servidor');
-    }
-  } else {
-    serveStaticFile(req, res);
+  try {
+    const filteredJsonData = await getDataDepartamento(jsonUrl);
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ getDataDepartamento: filteredJsonData }));
+  } catch (error) {
+    console.error('Error al obtener o parsear el JSON:', error);
+    res.writeHead(500, { 'Content-Type': 'text/plain' });
+    res.end('Error interno del servidor');
   }
 });
 
-const PORT = 3000;
-server.listen(PORT, () => {
-  console.log(`Servidor en ejecución en http://localhost:${PORT}`);
-});
+module.exports = router;

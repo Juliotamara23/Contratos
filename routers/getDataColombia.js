@@ -3,7 +3,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const getJsonFromUrl = (jsonUrl) => {
+const getDataColombia = (jsonUrl) => {
   return new Promise((resolve, reject) => {
     https.get(jsonUrl, (response) => {
       let data = '';
@@ -45,7 +45,7 @@ const server = http.createServer(async (req, res) => {
     const jsonUrl = 'https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.min.json';
 
     try {
-      const jsonData = await getJsonFromUrl(jsonUrl);
+      const jsonData = await getDataColombia(jsonUrl);
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(jsonData));
     } catch (error) {
@@ -58,7 +58,11 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
+module.exports = getDataColombia;
+
+/*
 const PORT = 3000;
 server.listen(PORT, () => {
   console.log(`Servidor en ejecución en http://localhost:${PORT}`);
 });
+*/
