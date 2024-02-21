@@ -1,0 +1,2 @@
+Este proyecto prentende ser una mejora del proyecto del mismo nombre el cual desarrolle durante mis practicas profesionales, este pretnende mejorar aspectos del desarrollo de la anterior como el cambio de lenguaje de programacion para todo el backemd de PHP a NodeJS,
+asi como tambien agregar el uso de apis para extraer informacion importante para el administrador de la aplicacion y el usuario final.
