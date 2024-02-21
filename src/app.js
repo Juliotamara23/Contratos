@@ -20,11 +20,20 @@ app.use(morgan("dev"));
 // Archivos estaticos
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('view', path.join(__dirname, 'views', 'usuarios.html'))
-app.get('/partials/_header.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'partials', '_header.html'));
-});
-app.get('/partials/_footer.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'partials', '_footer.html'));
+
+const partialsRoutes = ['/partials/_header.html', '/partials/_footer.html', '/partials/_header_footer.js'];
+
+app.get(partialsRoutes, (req, res) => {
+  const requestedPath = req.url;
+
+  // Verificar si la ruta solicitada está en el arreglo de rutas permitidas
+  if (partialsRoutes.includes(requestedPath)) {
+    // Construir la ruta completa al archivo y enviarlo
+    res.sendFile(path.join(__dirname, 'views', requestedPath));
+  } else {
+    // Si la ruta no está permitida, devolver un código de estado 404 (Not Found)
+    res.status(404).send('Not Found');
+  }
 });
 
 // Rutas para cada uno de los archivos
