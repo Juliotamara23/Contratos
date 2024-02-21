@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/main.css" />
+    <!-- Otras etiquetas head si es necesario -->
+</head>
+
+<body>
+
+    <div id="header"></div>
+    <div id="footer"></div>
+
+    <script>
+        // Función para cargar el encabezado y el pie de página
+        function loadCommonElements() {
+            const header = document.getElementById('header');
+            const footer = document.getElementById('footer');
+
+            // Cargar encabezado
+            fetch('/partials/_header.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error al cargar _header.html: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(html => header.innerHTML = html)
+                .catch(error => console.error(error));
+
+            // Cargar pie de página
+            fetch('/partials/_footer.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Error al cargar _footer.html: ${response.statusText}`);
+                    }
+                    return response.text();
+                })
+                .then(html => footer.innerHTML = html)
+                .catch(error => console.error(error));
+        }
+
+        // Llamar a la función al cargar la página
+        document.addEventListener('DOMContentLoaded', loadCommonElements);
+    </script>
+
+    <!-- Contenido específico de la página -->
+</body>
+
+</html>
