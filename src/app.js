@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 
 //middlewares
 app.use(morgan("dev"));
-//app.use('db/dbConfig', dbConnection);
+app.use(express.urlencoded({extended: false}));
 
 // Archivos estaticos
 app.use(express.static(path.join(__dirname, 'public')));

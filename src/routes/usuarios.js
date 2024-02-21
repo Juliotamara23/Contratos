@@ -3,5 +3,6 @@ const router = express.Router();
 const customerController = require('../controllers/usuarioController.js')
 
 router.get('/', customerController.list);
+router.post('/add', customerController.save);
 
 module.exports = router;
