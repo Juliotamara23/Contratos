@@ -1,0 +1,62 @@
+<%- include("partials/_header") %>
+
+<div class="container">
+
+    <div class="col-md-7">
+        <table class="table table-dark table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Telefono</th>
+              <th>Correo</th>
+              <th>Direccion</th>
+              <th>Ciudad</th>
+              <th>Cargo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (usuarios) { %>
+              <% for(var i=0; i < usuarios.length; i++) { %>
+                <tr>
+                  <td>
+                    <%= usuarios[i].Id %>
+                  </td>
+                  <td>
+                    <%= usuarios[i].nombre %>
+                  </td>
+                  <td>
+                    <%= usuarios[i].telefono %>
+                  </td>
+                  <td>
+                    <%= usuarios[i].correo %>
+                  </td>
+                  <td>
+                    <%= usuarios[i].direccion %>
+                  </td>
+                  <td>
+                    <%= usuarios[i].ciudad %>
+                  </td>
+                  <td>
+                    <%= usuarios[i].rol %>
+                  </td>
+                  <td class="d-flex gap-2">
+                    <a href="/update/<%= usuarios[i].id %>" class="btn btn-info">
+                      Edit
+                    </a>
+                    <a href="/delete/<%= usuarios[i].id %>" class="btn btn-danger">
+                      Delete
+                    </a>
+                  </td>
+                </tr>
+                <% } %>
+                  <% } %>
+          </tbody>
+        </table>
+      </div>
+
+    <button type="button" class="btn btn-danger" id="">Eliminar</button>
+
+</div>
+
+<%- include("partials/_footer") %>

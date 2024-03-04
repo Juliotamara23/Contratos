@@ -1,0 +1,59 @@
+<%- include("partials/_header") %>
+
+  <div class="container mt-5">
+    <div class="row">
+
+      <div class="col-md-5">
+        <div class="card-body">
+          <form action="/add" method="post">
+            <fieldset>
+                <legend>Registro de usuarios</legend>
+                <div class="form-group">
+                    <label for="" class="form-label mt-4">Numero de identificacion</label>
+                    <input type="number" class="form-control" id="id" name="Id" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="" class="form-label mt-4">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <label for="" class="form-label mt-4">Apellido</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1" class="form-label mt-4">Telefono</label>
+                    <input type="number" class="form-control" id="telefono" name="telefono" placeholder=""
+                        autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="staticEmail" class="col-sm-2 col-form-label">Correo</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="correo" name="correo">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="form-label mt-4">Direccion</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="">
+                </div>
+                <div class="form-group">
+                    <label for="exampleSelect1" class="form-label mt-4">Ciudad</label>
+                    <select class="form-select" id="ciudad" name="ciudad">
+                        <option aria-hidden="true"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleSelect1" class="form-label mt-4">Cargo</label>
+                    <select class="form-select" id="rol" name="rol">
+                        <option></option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </fieldset>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include("partials/_footer") %>
