@@ -3,16 +3,16 @@
 <div class="container">
 
     <div class="col-md-7">
-        <table class="table table-dark table-bordered table-hover">
+        <table class="table table-secondary table-hover">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Telefono</th>
-              <th>Correo</th>
-              <th>Direccion</th>
-              <th>Ciudad</th>
-              <th>Cargo</th>
+              <th scope="row">ID</th>
+              <th scope="row">Nombre</th>
+              <th scope="row">Telefono</th>
+              <th scope="row">Correo</th>
+              <th scope="row">Direccion</th>
+              <th scope="row">Ciudad</th>
+              <th scope="row">Cargo</th>
             </tr>
           </thead>
           <tbody>
@@ -38,7 +38,7 @@
                     <%= usuarios[i].ciudad %>
                   </td>
                   <td>
-                    <%= usuarios[i].rol %>
+                    <%= usuarios[i].rol_nombre %>
                   </td>
                   <td class="d-flex gap-2">
                     <a href="/update/<%= usuarios[i].id %>" class="btn btn-info">
@@ -54,8 +54,6 @@
           </tbody>
         </table>
       </div>
-
-    <button type="button" class="btn btn-danger" id="">Eliminar</button>
 
 </div>
 

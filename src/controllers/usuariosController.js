@@ -1,12 +1,14 @@
 import { pool } from "../db.js";
 
+export const Usuarios = async (req, res) => {
+  const [roles] = await pool.query("SELECT * FROM rol_usuario");
+  res.render("usuarios", { roles: roles });
+};
+
+
 export const listUsuarios = async (req, res) => {
   const [rows] = await pool.query("SELECT usuarios.*, rol_usuario.rol_nombre FROM usuarios JOIN rol_usuario ON usuarios.rol = rol_usuario.id_rol");
   res.render("tabla_usuarios", { usuarios: rows });
-};
-
-export const Usuarios = async (req, res) => {
-  res.render("usuarios");
 };
 
 export const createUsuario = async (req, res) => {

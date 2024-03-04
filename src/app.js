@@ -22,6 +22,22 @@ app.use(UsuariosRoutes);
 
 // static files
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "datos")));
+
+const datosRoutes = ['/datos/selectCiudad.js', '/datos/selectRol.js'];
+
+app.get(datosRoutes, (req, res) => {
+  const requestedPath = req.url;
+
+  // Verificar si la ruta solicitada está en el arreglo de rutas permitidas
+  if (datosRoutes.includes(requestedPath)) {
+    // Construir la ruta completa al archivo y enviarlo
+    res.sendFile(path.join(__dirname, requestedPath));
+  } else {
+    
+    res.status(404).send('Not Found');
+  }
+});
 
 // starting the server
 export default app;
