@@ -7,26 +7,37 @@
         <form action="/update/<%= usuarios.id %>" method="POST">
           <input
             type="text"
-            name="name"
-            value="<%= usuarios.name %>"
-            placeholder="Name"
+            name="nombre"
+            value="<%= usuarios.nombre %>"
+            placeholder="Nombre"
             class="form-control mb-3"
             autofocus
           />
           <input
             type="text"
-            name="address"
-            value="<%= usuarios.address%>"
-            placeholder="Address"
+            name="telefono"
+            value="<%= usuarios.telefono %>"
+            placeholder="Telefono"
             class="form-control mb-3"
           />
           <input
             type="text"
-            name="phone"
-            value="<%= usuarios.phone%>"
-            placeholder="Phone"
+            name="direccion"
+            value="<%= usuarios.direccion %>"
+            placeholder="Direccion"
             class="form-control mb-3"
           />
+          <input
+          type="text"
+          name="ciudad"
+          value="<%= usuarios.ciudad %>"
+          placeholder="ciudad"
+          class="form-control mb-3"
+        />
+        <select class="form-select" id="rol" name="rol">
+          <option value="<%= usuarios.rol_nombre %>"></option>
+
+        </select>
 
           <button type="submit" class="btn btn-primary">save usuarios</button>
         </form>
