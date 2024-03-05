@@ -13,7 +13,6 @@ export const listUsuarios = async (req, res) => {
 export const createUsuario = async (req, res) => {
   const newUsuario = req.body;
 
-  // Asegúrate de que el nombre del rol proporcionado existe en la tabla rol_usuario
   const [rol] = await pool.query("SELECT id_rol FROM rol_usuario WHERE rol_nombre = ?", [newUsuario.rol]);
 
   if (rol.length === 0) {
@@ -34,11 +33,22 @@ export const createUsuario = async (req, res) => {
 
 export const editUsuario = async (req, res) => {
   const { id } = req.params;
-  const [result] = await pool.query("SELECT usuarios.*, rol_usuario.rol_nombre FROM usuarios JOIN rol_usuario ON usuarios.rol = rol_usuario.id_rol WHERE id = ?", [
-    id,
-  ]);
-  res.render("usuarios_edit", { usuarios: result[0] });
+
+  try {
+    // Obtener información del usuario y roles
+    const [result] = await pool.query("SELECT usuarios.*, rol_usuario.rol_nombre FROM usuarios JOIN rol_usuario ON usuarios.rol = rol_usuario.id_rol WHERE id = ?", [id]);
+
+    // Obtener todos los roles disponibles
+    const [roles] = await pool.query("SELECT * FROM rol_usuario");
+
+    // Renderizar la vista con la información del usuario y roles
+    res.render("usuarios_edit", { usuarios: result[0], roles });
+  } catch (error) {
+    console.error('Error al ejecutar la consulta:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
 };
+
 
 export const updateUsuario = async (req, res) => {
   const { id } = req.params;
