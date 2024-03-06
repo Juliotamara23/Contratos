@@ -11,15 +11,14 @@ const getDataCiudad = (jsonUrl) => {
 };
 
 // Función para mostrar datos en el elemento select
-const mostrarData = (ciudad) => {
-  console.log(ciudad);
-  let body = "<option value=''>Seleccione una ciudad</option>";
+function mostrarData (ciudad) {
+  let body = "";
   for (let i = 0; i < ciudad.length; i++) {
     ciudad[i].ciudades.forEach((ciudadNombre) => {
       body += `<option>${ciudadNombre}</option>`;
     });
   };
-  document.getElementById('ciudad').innerHTML = body;
+  document.getElementById('ciudad').innerHTML += body;
 };
 
 // Llamar a la función para obtener y mostrar datos

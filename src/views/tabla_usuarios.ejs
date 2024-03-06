@@ -1,8 +1,13 @@
 <%- include("partials/_header") %>
 
 <div class="container">
-
-    <div class="col-md-7">
+<br>
+  <a href="/user" class="btn btn-success">
+    Registrar usuario
+  </a>
+  <br><br>
+  
+    <div class="col-md-0">
         <table class="table table-secondary table-hover">
           <thead>
             <tr>
@@ -23,7 +28,7 @@
                     <%= usuarios[i].id %>
                   </td>
                   <td>
-                    <%= usuarios[i].nombre %>
+                    <%= usuarios[i].nombre %> <%= usuarios[i].apellido %>
                   </td>
                   <td>
                     <%= usuarios[i].telefono %>

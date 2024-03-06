@@ -24,7 +24,7 @@ app.use(UsuariosRoutes);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "datos")));
 
-const datosRoutes = ['/datos/selectCiudad.js', '/datos/selectRol.js'];
+const datosRoutes = ['/datos/selectCiudad.js', '/datos/updateCiudad.js', '/datos/selectRol.js'];
 
 app.get(datosRoutes, (req, res) => {
   const requestedPath = req.url;
