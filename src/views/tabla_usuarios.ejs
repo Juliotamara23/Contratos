@@ -1,26 +1,22 @@
 <%- include("partials/_header") %>
 
 <div class="container">
-<br>
-  <a href="/user" class="btn btn-success">
-    Registrar usuario
-  </a>
   <br><br>
-  
-    <div class="col-md-0">
-        <table class="table table-secondary table-hover">
+    <div class="">
+        <table class="table table-ms table-dark table-hover border-primary rounded-3">
           <thead>
-            <tr>
-              <th scope="row">ID</th>
-              <th scope="row">Nombre</th>
-              <th scope="row">Telefono</th>
-              <th scope="row">Correo</th>
-              <th scope="row">Direccion</th>
-              <th scope="row">Ciudad</th>
-              <th scope="row">Cargo</th>
+            <tr class="text-center">
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Telefono</th>
+              <th scope="col">Correo</th>
+              <th scope="col">Direccion</th>
+              <th scope="col">Ciudad</th>
+              <th scope="col">Cargo</th>
+              <th scope="col">Acciones</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="text-center">
             <% if (usuarios) { %>
               <% for(var i=0; i < usuarios.length; i++) { %>
                 <tr>
@@ -45,7 +41,7 @@
                   <td>
                     <%= usuarios[i].rol_nombre %>
                   </td>
-                  <td class="d-flex gap-2">
+                  <td>
                     <a href="/update/<%= usuarios[i].id %>" class="btn btn-info">
                       Edit
                     </a>

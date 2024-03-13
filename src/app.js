@@ -3,6 +3,7 @@ import path from "path";
 import morgan from "morgan";
 
 import UsuariosRoutes from "./routes/usuario.routes.js";
+import ContratosRoutes from "./routes/contrato.routes.js";
 import { fileURLToPath } from "url";
 
 const app = express();
@@ -19,12 +20,13 @@ app.use(express.urlencoded({ extended: false }));
 
 // routes
 app.use(UsuariosRoutes);
+app.use(ContratosRoutes);
 
 // static files
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "datos")));
 
-const datosRoutes = ['/datos/selectCiudad.js', '/datos/updateCiudad.js', '/datos/selectRol.js'];
+const datosRoutes = ['/datos/selectCiudad.js', '/datos/selectDepartamento.js'];
 
 app.get(datosRoutes, (req, res) => {
   const requestedPath = req.url;

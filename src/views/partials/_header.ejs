@@ -1,18 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Nodejs Mysql CRUD</title>
-    <!-- NAVIGATION -->
-    <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.min.css">
-    <link rel="stylesheet" href="/styles/index.css" />
-  </head>
-  <body>
-    <!-- navigation -->
-    <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark"">
-      <div class="container">
-        <a class="navbar-brand" href="/">Sistema de contratos</a>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Contratos</title>
+  <!-- NAVIGATION -->
+  <link rel="stylesheet" href="https://bootswatch.com/5/zephyr/bootstrap.min.css">
+  <link rel="stylesheet" href="/styles/index.css" />
+</head>
+
+<body>
+  <!-- navigation -->
+
+  <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Sistemas de contratos</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+        aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/table_user">Tabla de usuarios
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/table_contratos">Tabla de contratos
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/user">Registrar usuario</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contrato">Registrar contrato</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+
+        </ul>
       </div>
-    </nav>
-  </body>
+    </div>
+  </nav>
+
+</body>
+
 </html>

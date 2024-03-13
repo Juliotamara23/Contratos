@@ -1,0 +1,91 @@
+<%- include("partials/_header") %>
+
+    <script type="module" src="datos/selectDepartamento.js"></script>
+
+    <div class="container mt-5">
+        <div class="row">
+
+            <div class="col-md-5 text-light offset-md-3 card bg-dark border-primary">
+                <div class="card-body">
+                    <form action="/add_contrato" method="post">
+                        <fieldset>
+                            <legend>Registro de contratos</legend>
+                            <div class="form-group">
+                                <label for="" class="form-label mt-4">ID del contrato</label>
+                                <input type="number" class="form-control" id="id_contrato" name="id_contrato"
+                                    placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label mt-4">Nombre del contrato</label>
+                                <input type="text" class="form-control" id="nombre_contrato" name="nombre_contrato"
+                                    placeholder="Nombre del contrato">
+                            </div>
+                            <div>
+                                <label for="exampleTextarea" class="form-label mt-4">Descipcion del contrato</label>
+                                <textarea class="form-control" id="descripcion" rows="3" name="descripcion"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleSelect1" class="form-label mt-4">Tipo de contrato</label>
+                                <select class="form-select" id="tipo" name="tipo">
+                                    <option value=''>Seleccione el tipo de contrato</option>
+                                    <% tipo.forEach(tipo=> { %>
+                                        <option value="<%= tipo.id_tipo %>">
+                                            <%= tipo.nombre_tipo %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label mt-4">Valor del contrato</label>
+                                <input type="number" class="form-control" id="valor" name="valor" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleSelect1" class="form-label mt-4">Departamento</label>
+                                <select class="form-select" id="departamento" name="departamento">
+                                    <option></option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleSelect1" class="form-label mt-4">Responsable</label>
+                                <select class="form-select" id="responsable" name="responsable">
+                                    <option value=''>Seleccione al responsable</option>
+                                    <% responsable.forEach(responsable => { %>
+                                        <option>
+                                            <%= responsable.nombre %> <%= responsable.apellido %>
+                                        </option>
+                                    <% }); %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label mt-4">Fecha</label>
+                                <input type="date" class="form-control" id="fecha" name="fecha" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label mt-4">Plazo</label>
+                                <input type="date" class="form-control" id="plazo" name="plazo" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleSelect1" class="form-label mt-4">Estado</label>
+                                <select class="form-select" id="estado" name="estado">
+                                    <option value=''>Seleccione el estado</option>
+                                    <% estado.forEach(estado=> { %>
+                                        <option>
+                                            <%= estado.nombre_estado %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="form-label mt-4">Enlace Secop</label>
+                                <input type="text" class="form-control" id="secop" name="secop" placeholder="">
+                            </div>
+                            <br>
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include("partials/_footer") %>

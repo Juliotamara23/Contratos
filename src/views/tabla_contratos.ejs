@@ -1,0 +1,73 @@
+<%- include("partials/_header") %>
+
+<div class="container">
+  <br><br>
+    <div class="">
+        <table class="table table-ms table-dark table-hover border-primary rounded-3">
+          <thead>
+            <tr class="text-center">
+              <th scope="col">Nombre del contrato</th>
+              <th scope="col">Departamento</th>
+              <th scope="col">Valor</th>
+              <th scope="col">Fecha de inicio</th>
+              <th scope="col">plazo</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">Responsable</th>
+              <th scope="col">Descripcion</th>
+              <th scope="col">Enlace Secop</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <% if (contratos) { %>
+              <% for(var i=0; i < contratos.length; i++) { %>
+                <tr>
+                  <td>
+                    <%= contratos[i].nombre_contrato %>
+                  </td>
+                  <td>
+                    <%= contratos[i].departamento %>
+                  </td>
+                  <td>
+                    <%= contratos[i].valor %>
+                  </td>
+                  <td>
+                    <%= contratos[i].fecha %>
+                  </td>
+                  <td>
+                    <%= contratos[i].plazo %>
+                  </td>
+                  <td>
+                    <%= contratos[i].nombre_estado %>
+                  </td>
+                  <td>
+                    <%= contratos[i].nombre_tipo %>
+                  </td>
+                  <td>
+                    <%= contratos[i].nombre %> <%= contratos[i].apellido %>
+                  </td>
+                  <td>
+                    <%= contratos[i].descripcion %>
+                  </td>
+                  <td>
+                    <%= contratos[i].enlacesecop %>
+                  </td>
+                  <td>
+                    <a href="/update/<%= contratos[i].id_contrato %>" class="btn btn-info">
+                      Edit
+                    </a>
+                    <a href="/delete/<%= contratos[i].id_contrato %>" class="btn btn-danger">
+                      Delete
+                    </a>
+                  </td>
+                </tr>
+                <% } %>
+                  <% } %>
+          </tbody>
+        </table>
+      </div>
+
+</div>
+
+<%- include("partials/_footer") %>

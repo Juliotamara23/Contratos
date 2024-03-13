@@ -1,5 +1,9 @@
 import { pool } from "../db.js";
 
+export const Index = async (req, res) => {
+  res.render("index");
+};
+
 export const Usuarios = async (req, res) => {
   const [roles] = await pool.query("SELECT * FROM rol_usuario");
   res.render("usuarios", { roles: roles });
@@ -26,7 +30,7 @@ export const createUsuario = async (req, res) => {
   // Realiza la inserción en la tabla usuarios
   await pool.query("INSERT INTO usuarios SET ?", [newUsuario]);
 
-  res.redirect("/");
+  res.redirect("/table_user");
 };
 
 export const editUsuario = async (req, res) => {
@@ -62,7 +66,7 @@ export const updateUsuario = async (req, res) => {
   // Realiza la inserción en la tabla usuarios
   await pool.query("UPDATE usuarios set ? WHERE id = ?", [newUsuario, id]);
 
-  res.redirect("/");
+  res.redirect("/table_user");
 };
 
 
@@ -72,5 +76,5 @@ export const deleteUsuario = async (req, res) => {
   if (result.affectedRows === 1) {
     res.json({ message: "Usuario deleted" });
   }
-  res.redirect("/");
+  res.redirect("/table_user");
 };
