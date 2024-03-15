@@ -69,12 +69,11 @@ export const updateUsuario = async (req, res) => {
   res.redirect("/table_user");
 };
 
-
 export const deleteUsuario = async (req, res) => {
   const { id } = req.params;
   const result = await pool.query("DELETE FROM usuarios WHERE id = ?", [id]);
   if (result.affectedRows === 1) {
-    res.json({ message: "Usuario deleted" });
+    res.json({ message: "Usuario eliminado" });
   }
   res.redirect("/table_user");
 };
