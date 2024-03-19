@@ -6,6 +6,7 @@
         <table class="table table-ms table-dark table-hover border-primary rounded-3">
           <thead>
             <tr class="text-center">
+              <th scope="col">Id del contrato</th>
               <th scope="col">Nombre del contrato</th>
               <th scope="col">Departamento</th>
               <th scope="col">Valor</th>
@@ -23,6 +24,9 @@
             <% if (contratos) { %>
               <% for(var i=0; i < contratos.length; i++) { %>
                 <tr>
+                  <td>
+                    <%= contratos[i].id_contrato %>
+                  </td>
                   <td>
                     <%= contratos[i].nombre_contrato %>
                   </td>

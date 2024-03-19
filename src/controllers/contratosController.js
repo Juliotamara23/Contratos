@@ -63,7 +63,7 @@ export const editContrato = async (req, res) => {
 
   try {
 
-    const [contrato] = await pool.query("SELECT contrato.*, usuarios.nombre, usuarios.apellido, contrato_tipo.nombre_tipo, estado.nombre_estado FROM contrato JOIN usuarios ON contrato.responsable = usuarios.id JOIN contrato_tipo ON contrato.tipo = contrato_tipo.id_tipo JOIN estado ON contrato.estado = estado.id_estado WHERE id = ?", [id_contrato])
+    const [contrato] = await pool.query("SELECT contrato.*, usuarios.nombre, usuarios.apellido, contrato_tipo.nombre_tipo, estado.nombre_estado FROM contrato JOIN usuarios ON contrato.responsable = usuarios.id JOIN contrato_tipo ON contrato.tipo = contrato_tipo.id_tipo JOIN estado ON contrato.estado = estado.id_estado WHERE id_contrato = ?", [id_contrato])
     const [tipo] = await pool.query("SELECT nombre_tipo FROM contrato_tipo");
     const [estado] = await pool.query("SELECT nombre_estado FROM estado");
     const [responsable] = await pool.query("SELECT nombre, apellido FROM usuarios WHERE rol = 2");
