@@ -25,6 +25,7 @@ app.use(ContratosRoutes);
 // static files
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "datos")));
+app.use(express.static(path.join(__dirname, "archivos_contratos")));
 
 const datosRoutes = ['/datos/selectCiudad.js', '/datos/selectDepartamento.js'];
 

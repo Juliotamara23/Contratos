@@ -1,4 +1,52 @@
 import { pool } from "../db.js";
+import multer from 'multer';
+
+
+// Definimos la función middleware de multer para subir archivos
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+
+    cb(null, 'archivos_contratos'); // Directorio de destino para los archivos
+  },
+  filename: (req, file, cb) => {
+
+    const date = new Date().toISOString().replace(/:/g, '-'); // Formato de fecha para evitar conflictos en los nombres
+    const filename = `${date}-${file.originalname}`; // Nombre del archivo concatenando la fecha y el nombre original
+    cb(null, filename);
+  }
+});
+
+// Función middleware de multer para subir archivos
+export const upload = multer({ storage: storage }).array('archivo_contrato', 5);
+
+export const Archivos = (req, res) => {
+
+  res.render("archivos");
+};
+
+// Controlador para la carga de archivos
+export const archivosContratos = async (req, res) => {
+  try {
+    // Verificar si se han cargado archivos
+    if (!req.files || req.files.length === 0) {
+      return res.status(400).json({ error: 'No se ha seleccionado ningún archivo' });
+    }
+
+    // Iterar sobre cada archivo cargado
+    for (const file of req.files) {
+      const { originalname, filename, mimetype, size } = file;
+
+      // Insertar la información del archivo en la base de datos
+      const query = 'INSERT INTO archivos (nombre_original, nombre_archivo, tipo_archivo, tamaño) VALUES (?, ?, ?, ?)';
+      await pool.query(query, [originalname, filename, mimetype, size]);
+    }
+
+    res.redirect("/archivos_contratos");
+  } catch (error) {
+    console.error('Error al cargar y almacenar los archivos:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
 
 export const Index = async (req, res) => {
   res.render("index");
@@ -85,10 +133,10 @@ export const updateContrato = async (req, res) => {
   const [estado] = await pool.query("SELECT id_estado FROM estado WHERE nombre_estado = ?", [newContrato.estado]);
   const [responsable] = await pool.query("SELECT id FROM usuarios WHERE nombre = ? AND apellido = ? AND rol = 2", [newContrato.responsable.split(" ")[0], newContrato.responsable.split(" ")[1]]);
 
-    // Registro de los resultados de las consultas SQL
-    console.log("Resultado de la consulta de tipo:", tipo);
-    console.log("Resultado de la consulta de estado:", estado);
-    console.log("Resultado de la consulta de responsable:", responsable);
+  // Registro de los resultados de las consultas SQL
+  console.log("Resultado de la consulta de tipo:", tipo);
+  console.log("Resultado de la consulta de estado:", estado);
+  console.log("Resultado de la consulta de responsable:", responsable);
 
   // Verifica si alguno de los tipos, estados o responsables no existe
   if (tipo.length === 0) {
