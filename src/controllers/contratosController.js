@@ -27,20 +27,17 @@ export const Archivos = (req, res) => {
 // Controlador para la carga de archivos
 export const archivosContratos = async (req, res) => {
   try {
-    // Verificar si se han cargado archivos
-    if (!req.files || req.files.length === 0) {
-      return res.status(400).json({ error: 'No se ha seleccionado ningún archivo' });
+    // Iterar sobre cada archivo cargado si existen
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        const { originalname, filename, mimetype, size } = file;
+
+        // Insertar la información del archivo en la base de datos
+        const query = 'INSERT INTO archivos (nombre_original, nombre_archivo, tipo_archivo, tamaño) VALUES (?, ?, ?, ?)';
+        await pool.query(query, [originalname, filename, mimetype, size]);
+      }
     }
-
-    // Iterar sobre cada archivo cargado
-    for (const file of req.files) {
-      const { originalname, filename, mimetype, size } = file;
-
-      // Insertar la información del archivo en la base de datos
-      const query = 'INSERT INTO archivos (nombre_original, nombre_archivo, tipo_archivo, tamaño) VALUES (?, ?, ?, ?)';
-      await pool.query(query, [originalname, filename, mimetype, size]);
-    }
-
+    
     res.redirect("/archivos_contratos");
   } catch (error) {
     console.error('Error al cargar y almacenar los archivos:', error);
