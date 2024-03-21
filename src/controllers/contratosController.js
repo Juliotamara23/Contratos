@@ -1,6 +1,9 @@
 import { pool } from "../db.js";
 import multer from 'multer';
 
+export const Index = async (req, res) => {
+  res.render("index");
+};
 
 // Definimos la función middleware de multer para subir archivos
 const storage = multer.diskStorage({
@@ -19,34 +22,45 @@ const storage = multer.diskStorage({
 // Función middleware de multer para subir archivos
 export const upload = multer({ storage: storage }).array('archivo_contrato', 5);
 
-export const Archivos = (req, res) => {
-
-  res.render("archivos");
+export const Archivos = async (req, res) => {
+  const [contrato] = await pool.query("SELECT * FROM contrato");
+  res.render("archivos", {contrato: contrato});
 };
 
 // Controlador para la carga de archivos
 export const archivosContratos = async (req, res) => {
+  const idContrato = req.body;
+
   try {
+    let contratoId = null;
+
+    if (idContrato.contrato) {
+      const [contrato] = await pool.query("SELECT id_contrato FROM contrato WHERE nombre_contrato = ?", [idContrato.contrato]);
+
+      if (contrato.length === 0) {
+        console.error(`El id ${contrato} del contrato especificado no existe`);
+        res.status(400).send('El id del contrato especificado no existe');
+        return;
+      }
+
+      contratoId = contrato[0].id_contrato;
+    }
+    
     // Iterar sobre cada archivo cargado si existen
     if (req.files && req.files.length > 0) {
       for (const file of req.files) {
         const { originalname, filename, mimetype, size } = file;
 
         // Insertar la información del archivo en la base de datos
-        const query = 'INSERT INTO archivos (nombre_original, nombre_archivo, tipo_archivo, tamaño) VALUES (?, ?, ?, ?)';
-        await pool.query(query, [originalname, filename, mimetype, size]);
+        await pool.query("INSERT INTO archivos (nombre_original, nombre_archivo, tipo_archivo, tamaño, contrato_id) VALUES (?, ?, ?, ?, ?)", [originalname, filename, mimetype, size, contratoId]);
       }
     }
-    
+
     res.redirect("/archivos_contratos");
   } catch (error) {
     console.error('Error al cargar y almacenar los archivos:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
-};
-
-export const Index = async (req, res) => {
-  res.render("index");
 };
 
 export const listContrato = async (req, res) => {
@@ -58,6 +72,7 @@ export const Contrato = async (req, res) => {
   const [tipo] = await pool.query("SELECT * FROM contrato_tipo");
   const [responsable] = await pool.query("SELECT nombre, apellido FROM usuarios WHERE rol = 2");
   const [estado] = await pool.query("SELECT * FROM estado");
+
   res.render("contratos", { tipo: tipo, responsable: responsable, estado: estado });
 };
 
@@ -67,7 +82,7 @@ export const createContrato = async (req, res) => {
   try {
     // Realiza una única consulta para obtener los IDs de tipo, estado y responsable
 
-    const [tipo] = await pool.query("SELECT id_tipo FROM contrato_tipo WHERE id_tipo = ?", [newContrato.tipo]);
+    const [tipo] = await pool.query("SELECT id_tipo FROM contrato_tipo WHERE nombre_tipo = ?", [newContrato.tipo]);
     const [estado] = await pool.query("SELECT id_estado FROM estado WHERE nombre_estado = ?", [newContrato.estado]);
     const [responsable] = await pool.query("SELECT id FROM usuarios WHERE nombre = ? AND apellido = ? AND rol = 2", [newContrato.responsable.split(" ")[0], newContrato.responsable.split(" ")[1]]);
 

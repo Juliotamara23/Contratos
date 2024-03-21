@@ -10,7 +10,7 @@
                     <form action="/add_contrato" method="post">
                         <fieldset>
                             <legend>Registro de contratos</legend>
-                            <div class="form-group">
+                            <div class="form-group" hidden>
                                 <label for="" class="form-label mt-4">ID del contrato</label>
                                 <input type="number" class="form-control" id="id_contrato" name="id_contrato"
                                     placeholder="">
@@ -29,7 +29,7 @@
                                 <select class="form-select" id="tipo" name="tipo">
                                     <option value=''>Seleccione el tipo de contrato</option>
                                     <% tipo.forEach(tipo=> { %>
-                                        <option value="<%= tipo.id_tipo %>">
+                                        <option>
                                             <%= tipo.nombre_tipo %>
                                         </option>
                                         <% }); %>
@@ -49,15 +49,16 @@
                                 <label for="exampleSelect1" class="form-label mt-4">Responsable</label>
                                 <select class="form-select" id="responsable" name="responsable">
                                     <option value=''>Seleccione al responsable</option>
-                                    <% responsable.forEach(responsable => { %>
+                                    <% responsable.forEach(responsable=> { %>
                                         <option>
-                                            <%= responsable.nombre %> <%= responsable.apellido %>
+                                            <%= responsable.nombre %>
+                                                <%= responsable.apellido %>
                                         </option>
-                                    <% }); %>
+                                        <% }); %>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="" class="form-label mt-4">Fecha</label>
+                                <label for="" class="form-label mt-4">Fecha de inicio</label>
                                 <input type="date" class="form-control" id="fecha" name="fecha" placeholder="">
                             </div>
                             <div class="form-group">
