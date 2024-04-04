@@ -10,10 +10,9 @@
                     <form action="/add_contrato" method="post">
                         <fieldset>
                             <legend>Registro de contratos</legend>
-                            <div class="form-group" hidden>
+                            <div class="form-group" >
                                 <label for="" class="form-label mt-4">ID del contrato</label>
-                                <input type="number" class="form-control" id="id_contrato" name="id_contrato"
-                                    placeholder="">
+                                <input type="number" class="form-control" id="id_contrato" name="id_contrato" value="<%= idContrato %>">
                             </div>
                             <div class="form-group">
                                 <label for="" class="form-label mt-4">Nombre del contrato</label>
@@ -80,6 +79,10 @@
                                 <label for="" class="form-label mt-4">Enlace Secop</label>
                                 <input type="text" class="form-control" id="secop" name="secop" placeholder="">
                             </div>
+                            <div>
+                                <label for="formFile" class="form-label mt-4">Adjuntar archivos</label>
+                                <input class="form-control" type="file" id="archivo_contrato" name="archivo_contrato" multiple>
+                              </div>
                             <br>
                             <button type="submit" class="btn btn-primary">Registrar</button>
                         </fieldset>

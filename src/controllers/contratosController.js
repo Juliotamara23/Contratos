@@ -24,7 +24,32 @@ export const upload = multer({ storage: storage }).array('archivo_contrato', 5);
 
 export const Archivos = async (req, res) => {
   const [contrato] = await pool.query("SELECT * FROM contrato");
-  res.render("archivos", {contrato: contrato});
+  res.render("archivos", { contrato: contrato });
+};
+
+export const listContrato = async (req, res) => {
+  const [rows] = await pool.query("SELECT contrato.*, usuarios.nombre, usuarios.apellido, contrato_tipo.nombre_tipo, estado.nombre_estado FROM contrato JOIN usuarios ON contrato.responsable = usuarios.id JOIN contrato_tipo ON contrato.tipo = contrato_tipo.id_tipo JOIN estado ON contrato.estado = estado.id_estado;");
+  res.render("tabla_contratos", { contratos: rows });
+};
+
+export const Contrato = async (req, res) => {
+  try {
+    // Obtener la fecha actual
+    const currentDate = new Date();
+
+    // Generar un valor único basado en la fecha actual (Timestamp como ID)
+    const idContrato = currentDate.getTime().toString();
+
+    const [tipo] = await pool.query("SELECT * FROM contrato_tipo");
+    const [responsable] = await pool.query("SELECT nombre, apellido FROM usuarios WHERE rol = 2");
+    const [estado] = await pool.query("SELECT * FROM estado");
+
+    res.render("contratos", { tipo: tipo, responsable: responsable, estado: estado, idContrato: idContrato });
+
+  } catch (error) {
+    console.error('Error al obtener datos para la creación del contrato:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
 };
 
 // Controlador para la carga de archivos
@@ -32,7 +57,7 @@ export const archivosContratos = async (req, res) => {
   const idContrato = req.body;
 
   try {
-    let contratoId = null;
+    let idcontrato = null;
 
     if (idContrato.contrato) {
       const [contrato] = await pool.query("SELECT id_contrato FROM contrato WHERE nombre_contrato = ?", [idContrato.contrato]);
@@ -43,16 +68,16 @@ export const archivosContratos = async (req, res) => {
         return;
       }
 
-      contratoId = contrato[0].id_contrato;
+      idcontrato = contrato[0].id_contrato;
     }
-    
+
     // Iterar sobre cada archivo cargado si existen
     if (req.files && req.files.length > 0) {
       for (const file of req.files) {
         const { originalname, filename, mimetype, size } = file;
 
         // Insertar la información del archivo en la base de datos
-        await pool.query("INSERT INTO archivos (nombre_original, nombre_archivo, tipo_archivo, tamaño, contrato_id) VALUES (?, ?, ?, ?, ?)", [originalname, filename, mimetype, size, contratoId]);
+        await pool.query("INSERT INTO archivos (nombre_original, nombre_archivo, tipo_archivo, tamaño, contrato_id) VALUES (?, ?, ?, ?, ?)", [originalname, filename, mimetype, size, idcontrato]);
       }
     }
 
@@ -61,19 +86,6 @@ export const archivosContratos = async (req, res) => {
     console.error('Error al cargar y almacenar los archivos:', error);
     res.status(500).json({ error: 'Error interno del servidor' });
   }
-};
-
-export const listContrato = async (req, res) => {
-  const [rows] = await pool.query("SELECT contrato.*, usuarios.nombre, usuarios.apellido, contrato_tipo.nombre_tipo, estado.nombre_estado FROM contrato JOIN usuarios ON contrato.responsable = usuarios.id JOIN contrato_tipo ON contrato.tipo = contrato_tipo.id_tipo JOIN estado ON contrato.estado = estado.id_estado;");
-  res.render("tabla_contratos", { contratos: rows });
-};
-
-export const Contrato = async (req, res) => {
-  const [tipo] = await pool.query("SELECT * FROM contrato_tipo");
-  const [responsable] = await pool.query("SELECT nombre, apellido FROM usuarios WHERE rol = 2");
-  const [estado] = await pool.query("SELECT * FROM estado");
-
-  res.render("contratos", { tipo: tipo, responsable: responsable, estado: estado });
 };
 
 export const createContrato = async (req, res) => {
@@ -87,19 +99,9 @@ export const createContrato = async (req, res) => {
     const [responsable] = await pool.query("SELECT id FROM usuarios WHERE nombre = ? AND apellido = ? AND rol = 2", [newContrato.responsable.split(" ")[0], newContrato.responsable.split(" ")[1]]);
 
     // Verifica si alguno de los tipos, estados o responsables no existe
-    if (tipo.length === 0) {
-      console.error('El tipo especificado no existe en la tabla de tipos de contrato');
-      res.status(400).send('El tipo especificado no existe en la tabla de tipos de contrato');
-      return;
-    }
-    if (estado.length === 0) {
-      console.error('El estado especificado no existe en la tabla de estados');
-      res.status(400).send('El estado especificado no existe en la tabla de estados');
-      return;
-    }
-    if (responsable.length === 0) {
-      console.error('El responsable especificado no existe en la tabla de usuarios');
-      res.status(400).send('El responsable especificado no existe en la tabla de usuarios');
+    if (tipo.length === 0 || estado.length === 0 || responsable.length === 0) {
+      console.error('El tipo, estado o responsable especificado no existe en la base de datos');
+      res.status(400).send('El tipo, estado o responsable especificado no existe en la base de datos');
       return;
     }
 

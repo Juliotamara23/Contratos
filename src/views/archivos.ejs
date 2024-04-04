@@ -1,12 +1,12 @@
 <%- include("partials/_header") %>
   <br><br>
-  <h1>Carga de Archivos de Contratos</h1>
 
   <div class="container mt-5">
     <div class="row">
 
       <div class="col-md-5 text-light offset-md-3 card bg-dark border-primary">
         <div class="card-body">
+          <legend> Adjuntar archivos </legend>
           <form action="/add_archivos" method="POST" enctype="multipart/form-data">
             <div class="form-group">
               <label for="exampleSelect1" class="form-label mt-4">contrato</label>
@@ -24,7 +24,7 @@
               </div>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Registrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
           </form>
 
         </div>
