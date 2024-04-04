@@ -2,7 +2,7 @@
 
 <div class="container">
   <br><br>
-    <div class="">
+    <div class="table-responsive">
         <table class="table table-ms table-dark table-hover border-primary rounded-3">
           <thead>
             <tr class="text-center">
@@ -17,7 +17,7 @@
               <th scope="col">Responsable</th>
               <th scope="col">Descripcion</th>
               <th scope="col">Enlace Secop</th>
-              <th scope="col">Acciones</th>
+              <th colspan="3" scope="col" class="table-active">Acciones</th>
             </tr>
           </thead>
           <tbody class="text-center">
@@ -57,12 +57,19 @@
                   <td>
                     <%= contratos[i].enlacesecop %>
                   </td>
-                  <td>
-                    <a href="/update_contrato/<%= contratos[i].id_contrato %>" class="btn btn-info">
+                  <td class="table-active">
+                    <a href="/update_contrato/<%= contratos[i].id_contrato %>" class="btn btn-success">
                       Edit
                     </a>
+                  </td>
+                  <td class="table-active">
                     <a href="/delete_contrato/<%= contratos[i].id_contrato %>" class="btn btn-danger">
                       Delete
+                    </a>
+                  </td>
+                  <td class="table-active">
+                    <a href="/contrato_archivos/<%= contratos[i].id_contrato %>" class="btn btn-info">
+                      Subir archivos
                     </a>
                   </td>
                 </tr>

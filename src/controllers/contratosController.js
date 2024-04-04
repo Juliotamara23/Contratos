@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
 // Función middleware de multer para subir archivos
 export const upload = multer({ storage: storage }).array('archivo_contrato', 5);
 
-export const Archivos = async (req, res) => {
+export const uploadArchivos = async (req, res) => {
   const [contrato] = await pool.query("SELECT * FROM contrato");
   res.render("archivos", { contrato: contrato });
 };
@@ -187,4 +187,57 @@ export const deleteContrato = async (req, res) => {
     res.json({ message: "Contrato eliminado" });
   }
   res.redirect("/table_contratos");
+};
+
+export const subirArchivos = async (req, res) => {
+  const { id_contrato } = req.params;
+
+  try {
+
+    const [contrato] = await pool.query("SELECT * FROM contrato WHERE id_contrato = ?", [id_contrato]);
+
+    res.render("archivos_contrato", { contrato: contrato[0] });
+  } catch (error) {
+    console.error('Error al ejecutar la consulta:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+};
+
+// Controlador para cargar archivos a un contrato
+export const contratoArchivos = async (req, res) => {
+  const { id_contrato } = req.params;
+
+  try {
+    if (!id_contrato) {
+      console.error('No se ha proporcionado un ID de contrato');
+      res.status(400).send('No se ha proporcionado un ID de contrato');
+      return;
+    }
+
+    const [contrato] = await pool.query("SELECT id_contrato FROM contrato WHERE id_contrato = ?", [id_contrato]);
+
+    if (contrato.length === 0) {
+      console.error(`El contrato especificado con el ID ${id_contrato} no existe`);
+      res.status(404).send('El contrato especificado no existe');
+      return;
+    }
+
+    // Obtener el ID del contrato directamente desde el resultado de la consulta SQL
+    const contratoId = contrato[0].id_contrato;
+
+    // Iterar sobre cada archivo cargado si existen
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        const { originalname, filename, mimetype, size } = file;
+
+        // Insertar la información del archivo en la base de datos
+        await pool.query("INSERT INTO archivos (nombre_original, nombre_archivo, tipo_archivo, tamaño, contrato_id) VALUES (?, ?, ?, ?, ?)", [originalname, filename, mimetype, size, contratoId]);
+      }
+    }
+
+    res.redirect("/table_contratos");
+  } catch (error) {
+    console.error('Error al cargar y almacenar los archivos:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
 };
