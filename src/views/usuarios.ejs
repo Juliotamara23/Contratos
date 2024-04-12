@@ -1,65 +1,92 @@
-<%- include("partials/_header") %>
+<%- include("partials/_sidebar") %>
 
-    <script type="module" src="datos/selectCiudad.js"></script>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column bg-gray-900">
 
-    <div class="container mt-5">
-        <div class="row">
+        <!-- Main Content -->
+        <div id="content">
 
-            <div class="col-md-5 text-light offset-md-3 card bg-dark border-primary">
-                <div class="card-body">
-                    <form action="/add" method="post">
-                        <fieldset>
-                            <legend>Registro de usuarios</legend>
-                            <div class="form-group">
-                                <label for="" class="form-label mt-4">Numero de identificacion</label>
-                                <input type="number" class="form-control" id="id" name="id" placeholder="">
+            <%- include("partials/_header") %>
+
+                <script type="module" src="datos/selectCiudad.js"></script>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="container">
+                    <div class="card shadow mb-4 bg-gray-200">
+                        <div class="card-header py-3 bg-primary">
+                            <h6 class="m-0 font-weight-bold text-light">Panel de administración de usuarios</h6>
+                        </div>
+
+                        <div class="card-body p-4">
+                            <div class="responsive">
+                                <form class="user" action="/add" method="post">
+                                    <legend>Registro de usuarios</legend>
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="" class="form-label mt-4">Número de identificación</label>
+                                            <input type="number" class="form-control" id="id" name="id" placeholder="">
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="" class="form-label mt-4">Nombre</label>
+                                            <input type="text" class="form-control" id="nombre" name="nombre"
+                                                placeholder="Nombre">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="" class="form-label mt-4">Apellido</label>
+                                            <input type="text" class="form-control" id="apellido" name="apellido"
+                                                placeholder="Apellido">
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="exampleInputPassword1" class="form-label mt-4">Teléfono</label>
+                                            <input type="number" class="form-control" id="telefono" name="telefono"
+                                                placeholder="" autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="staticEmail" class="form-label mt-4">Correo</label>
+                                            <input type="email" class="form-control" id="correo" name="correo">
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="" class="form-label mt-4">Dirección</label>
+                                            <input type="text" class="form-control" id="direccion" name="direccion"
+                                                placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="exampleSelect1" class="form-label mt-4">Ciudad</label>
+                                            <select class="form-control" id="ciudad" name="ciudad">
+                                                <option></option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <label for="exampleSelect1" class="form-label mt-4">Cargo</label>
+                                            <select class="form-control" id="rol" name="rol">
+                                                <option value=''>Seleccione un cargo</option>
+                                                <% roles.forEach(rol=> { %>
+                                                    <option>
+                                                        <%= rol.rol_nombre %>
+                                                    </option>
+                                                    <% }); %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                                </form>
                             </div>
-                            <div class="form-group">
-                                <label for="" class="form-label mt-4">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="form-label mt-4">Apellido</label>
-                                <input type="text" class="form-control" id="apellido" name="apellido"
-                                    placeholder="Apellido">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1" class="form-label mt-4">Telefono</label>
-                                    <input type="number" class="form-control" id="telefono" name="telefono"
-                                        placeholder="" autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <label for="staticEmail" class="col-sm-2 col-form-label">Correo</label>
-                                    <input type="email" class="form-control" id="correo" name="correo">
-                            </div>
-                            <div class="form-group">
-                                <label for="" class="form-label mt-4">Direccion</label>
-                                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleSelect1" class="form-label mt-4">Ciudad</label>
-                                <select class="form-select" id="ciudad" name="ciudad">
-                                    <option></option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleSelect1" class="form-label mt-4">Cargo</label>
-                                <select class="form-select" id="rol" name="rol">
-                                    <option value=''>Seleccione un cargo</option>
-                                    <% roles.forEach(rol=> { %>
-                                        <option>
-                                            <%= rol.rol_nombre %>
-                                        </option>
-                                        <% }); %>
-                                </select>
-                            </div>
-                            <br>
-                            <button type="submit" class="btn btn-primary">Registrar</button>
-                        </fieldset>
-                    </form>
+                        </div>
+                    </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
+                <!-- /.container-fluid -->
 
-    <%- include("partials/_footer") %>
+        </div>
+        <!-- End of Main Content -->
+        <%- include("partials/_footer") %>
