@@ -1,7 +1,0 @@
-GET http://localhost:3000/datos/selectDepartamento HTTP/1.1
-Content-Type: application/json
-
-###
-
-GET http://localhost:3000/datos/selectCiudad HTTP/1.1
-Content-Type: application/json
