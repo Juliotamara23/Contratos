@@ -34,17 +34,12 @@ export const listContrato = async (req, res) => {
 
 export const Contrato = async (req, res) => {
   try {
-    // Obtener la fecha actual
-    const currentDate = new Date();
-
-    // Generar un valor único basado en la fecha actual (Timestamp como ID)
-    const idContrato = currentDate.getTime().toString();
 
     const [tipo] = await pool.query("SELECT * FROM contrato_tipo");
     const [responsable] = await pool.query("SELECT nombre, apellido FROM usuarios WHERE rol = 2");
     const [estado] = await pool.query("SELECT * FROM estado");
 
-    res.render("contratos", { tipo: tipo, responsable: responsable, estado: estado, idContrato: idContrato });
+    res.render("contratos", { tipo: tipo, responsable: responsable, estado: estado });
 
   } catch (error) {
     console.error('Error al obtener datos para la creación del contrato:', error);
@@ -92,6 +87,13 @@ export const createContrato = async (req, res) => {
   const newContrato = req.body;
 
   try {
+
+    // Obtener la fecha actual
+    const currentDate = new Date();
+
+    // Generar un valor único basado en la fecha actual (Timestamp como ID)
+    const idContrato = currentDate.getTime().toString();
+
     // Realiza una única consulta para obtener los IDs de tipo, estado y responsable
 
     const [tipo] = await pool.query("SELECT id_tipo FROM contrato_tipo WHERE nombre_tipo = ?", [newContrato.tipo]);
@@ -105,10 +107,11 @@ export const createContrato = async (req, res) => {
       return;
     }
 
-    // Asigna los IDs de tipo, estado y responsable al nuevo contrato
+    // Asigna los IDs de tipo, estado, responsable y el id_contrato al nuevo contrato
     newContrato.tipo = tipo[0].id_tipo;
     newContrato.estado = estado[0].id_estado;
     newContrato.responsable = responsable[0].id;
+    newContrato.id_contrato = idContrato;
 
     // Realiza la inserción en la tabla contrato
     await pool.query("INSERT INTO contrato SET ?", [newContrato]);
