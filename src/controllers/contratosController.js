@@ -28,7 +28,7 @@ export const uploadArchivos = async (req, res) => {
 };
 
 export const listContrato = async (req, res) => {
-  const [rows] = await pool.query("SELECT contrato.*, usuarios.nombre, usuarios.apellido, contrato_tipo.nombre_tipo, estado.nombre_estado FROM contrato JOIN usuarios ON contrato.responsable = usuarios.id JOIN contrato_tipo ON contrato.tipo = contrato_tipo.id_tipo JOIN estado ON contrato.estado = estado.id_estado;");
+  const [rows] = await pool.query("SELECT contrato.*, usuarios.nombre, usuarios.apellido, contrato_tipo.nombre_tipo, estado.nombre_estado FROM contrato LEFT JOIN usuarios ON contrato.responsable = usuarios.id JOIN contrato_tipo ON contrato.tipo = contrato_tipo.id_tipo JOIN estado ON contrato.estado = estado.id_estado;");
   res.render("tabla_contratos", { contratos: rows });
 };
 
@@ -88,10 +88,8 @@ export const createContrato = async (req, res) => {
 
   try {
 
-    // Obtener la fecha actual
-    const currentDate = new Date();
-
     // Generar un valor único basado en la fecha actual (Timestamp como ID)
+    const currentDate = new Date();
     const idContrato = currentDate.getTime().toString();
 
     // Realiza una única consulta para obtener los IDs de tipo, estado y responsable
@@ -127,12 +125,19 @@ export const editContrato = async (req, res) => {
   const { id_contrato } = req.params;
 
   try {
+    const [contrato] = await pool.query("SELECT contrato.*, usuarios.nombre, usuarios.apellido, contrato_tipo.nombre_tipo, estado.nombre_estado FROM contrato LEFT JOIN usuarios ON contrato.responsable = usuarios.id JOIN contrato_tipo ON contrato.tipo = contrato_tipo.id_tipo JOIN estado ON contrato.estado = estado.id_estado WHERE id_contrato = ?", [id_contrato])
 
-    const [contrato] = await pool.query("SELECT contrato.*, usuarios.nombre, usuarios.apellido, contrato_tipo.nombre_tipo, estado.nombre_estado FROM contrato JOIN usuarios ON contrato.responsable = usuarios.id JOIN contrato_tipo ON contrato.tipo = contrato_tipo.id_tipo JOIN estado ON contrato.estado = estado.id_estado WHERE id_contrato = ?", [id_contrato])
+    if (!contrato || contrato.length === 0) {
+      console.error('No se encontró ningún contrato con el ID especificado:', id_contrato);
+      res.status(404).send('No se encontró ningún contrato con el ID especificado');
+      return;
+    }
+
     const [tipo] = await pool.query("SELECT nombre_tipo FROM contrato_tipo");
     const [estado] = await pool.query("SELECT nombre_estado FROM estado");
     const [responsable] = await pool.query("SELECT nombre, apellido FROM usuarios WHERE rol = 2");
 
+    console.log("Resultado de la consulta de contrato:", id_contrato);
 
     res.render("contratos_edit", { contrato: contrato[0], tipo, estado, responsable });
   } catch (error) {
