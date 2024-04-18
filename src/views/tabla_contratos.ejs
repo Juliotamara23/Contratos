@@ -1,84 +1,141 @@
-<%- include("partials/_header") %>
+<%- include("partials/_sidebar") %>
 
-<div class="container">
-  <br><br>
-    <div class="table-responsive">
-        <table class="table table-ms table-dark table-hover border-primary rounded-3">
-          <thead>
-            <tr class="text-center">
-              <th scope="col">Id del contrato</th>
-              <th scope="col">Nombre del contrato</th>
-              <th scope="col">Departamento</th>
-              <th scope="col">Valor</th>
-              <th scope="col">Fecha de inicio</th>
-              <th scope="col">plazo</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Tipo</th>
-              <th scope="col">Responsable</th>
-              <th scope="col">Descripcion</th>
-              <th scope="col">Enlace Secop</th>
-              <th colspan="3" scope="col" class="table-active">Acciones</th>
-            </tr>
-          </thead>
-          <tbody class="text-center">
-            <% if (contratos) { %>
-              <% for(var i=0; i < contratos.length; i++) { %>
-                <tr>
-                  <td>
-                    <%= contratos[i].id_contrato %>
-                  </td>
-                  <td>
-                    <%= contratos[i].nombre_contrato %>
-                  </td>
-                  <td>
-                    <%= contratos[i].departamento %>
-                  </td>
-                  <td>
-                    <%= contratos[i].valor %>
-                  </td>
-                  <td>
-                    <%= contratos[i].fecha %>
-                  </td>
-                  <td>
-                    <%= contratos[i].plazo %>
-                  </td>
-                  <td>
-                    <%= contratos[i].nombre_estado %>
-                  </td>
-                  <td>
-                    <%= contratos[i].nombre_tipo %>
-                  </td>
-                  <td>
-                    <%= contratos[i].nombre %> <%= contratos[i].apellido %>
-                  </td>
-                  <td>
-                    <%= contratos[i].descripcion %>
-                  </td>
-                  <td>
-                    <%= contratos[i].enlacesecop %>
-                  </td>
-                  <td class="table-active">
-                    <a href="/update_contrato/<%= contratos[i].id_contrato %>" class="btn btn-success">
-                      Edit
-                    </a>
-                  </td>
-                  <td class="table-active">
-                    <a href="/delete_contrato/<%= contratos[i].id_contrato %>" class="btn btn-danger">
-                      Delete
-                    </a>
-                  </td>
-                  <td class="table-active">
-                    <a href="/contrato_archivos/<%= contratos[i].id_contrato %>" class="btn btn-info">
-                      Subir archivos
-                    </a>
-                  </td>
-                </tr>
-                <% } %>
-                  <% } %>
-          </tbody>
-        </table>
-      </div>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column bg-gray-900">
 
-</div>
+        <!-- Main Content -->
+        <div id="content">
 
-<%- include("partials/_footer") %>
+            <%- include("partials/_header") %>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-100">Tabla de contratos</h1>
+
+                    <br><br>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4 bg-gray-200">
+                        <div class="card-header py-3 bg-primary">
+                            <h6 class="m-0 font-weight-bold text-light">Contratos</h6>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover nowrap" id="dataTable" width="100%"
+                                    cellspacing="0">
+                                    <thead class="text-center bg-gray-900 text-light">
+                                        <tr>
+                                            <th>Id del contrato</th>
+                                            <th>Nombre del contrato</th>
+                                            <th>Responsable</th>
+                                            <th>Departamento</th>
+                                            <th>Valor $</th>
+                                            <th>Fechas del contrato</th>
+                                            <th>Estado</th>
+                                            <th>Tipo</th>
+                                            <th>Descripción</th>
+                                            <th>Enlace Secop</th>
+                                            <th>Acciones</th>
+                                            <th>Documentos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                        <% if (contratos) { %>
+                                            <% for(var i=0; i < contratos.length; i++) { %>
+                                                <tr>
+                                                    <td>
+                                                        <div class="col-md-auto">
+                                                            <%= contratos[i].id_contrato %>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-md-auto">
+                                                            <%= contratos[i].nombre_contrato %>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-md-auto">
+                                                            <%= (contratos[i].nombre && contratos[i].apellido) ? `${contratos[i].nombre} ${contratos[i].apellido}` : 'No hay responsable asignado' %>
+                                                        </div>
+                                                    </td>
+                                                    
+                                                    <td>
+                                                        <%= contratos[i].departamento %>
+                                                    </td>
+                                                    <td>
+                                                        $ <%= contratos[i].valor %>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-md-auto">
+                                                            <span class="font-weight-bolder">Fecha inicial: </span>
+                                                            <%= contratos[i].fecha %>
+                                                                <br>
+                                                                <span class="font-weight-bolder">Fecha final: </span>
+                                                                <%= contratos[i].plazo %>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <%= contratos[i].nombre_estado %>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-md-auto">
+                                                            <%= contratos[i].nombre_tipo %>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <textarea class="form-floating mb-2" name=""
+                                                            id="floatingTextarea2Disabled" cols="30"
+                                                            placeholder="No hay una descripción" rows="2"
+                                                            disabled><%= contratos[i].descripcion %></textarea>
+                                                    </td>
+                                                    <td>
+                                                        <a href="<%= contratos[i].secop %>"
+                                                            class="btn btn-primary btn-icon-split btn-sm">
+                                                            <span class="icon text-ligth">
+                                                                <i class="fas fa-arrow-right"></i>
+                                                            </span>
+                                                            <span class="text">Ir al sitio</span>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/update_contrato/<%= contratos[i].id_contrato %>"
+                                                            class="btn btn-info btn-icon-split btn-sm">
+                                                            <span class="icon text-white-50">
+                                                                <i class="fas fa-info-circle"></i>
+                                                            </span>
+                                                            <span class="text">Editar</span>
+                                                        </a>
+                                                        <a href="/delete_contrato/<%= contratos[i].id_contrato %>"
+                                                            class="btn btn-danger btn-icon-split btn-sm">
+                                                            <span class="icon text-white-50">
+                                                                <i class="fas fa-trash"></i>
+                                                            </span>
+                                                            <span class="text">Eliminar</span>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/contrato_archivos/<%= contratos[i].id_contrato %>"
+                                                            class="btn btn-secondary btn-icon-split btn-sm">
+                                                            <span class="icon text-white-50">
+                                                                <i class="fas fa-arrow-right"></i>
+                                                            </span>
+                                                            <span class="text">Subir archivos</span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+                                                    <% } %>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <%- include("partials/_footer") %>
