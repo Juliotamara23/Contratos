@@ -11,14 +11,11 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-100">Tabla de contratos</h1>
-
                     <br><br>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4 bg-gray-200">
                         <div class="card-header py-3 bg-primary">
-                            <h6 class="m-0 font-weight-bold text-light">Contratos</h6>
+                            <h6 class="m-0 font-weight-bold text-light">Tabla de contratos</h6>
                         </div>
 
                         <div class="card-body">
@@ -57,10 +54,12 @@
                                                     </td>
                                                     <td>
                                                         <div class="col-md-auto">
-                                                            <%= (contratos[i].nombre && contratos[i].apellido) ? `${contratos[i].nombre} ${contratos[i].apellido}` : 'No hay responsable asignado' %>
+                                                            <%= (contratos[i].nombre && contratos[i].apellido) ?
+                                                                `${contratos[i].nombre} ${contratos[i].apellido}`
+                                                                : 'No hay responsable asignado' %>
                                                         </div>
                                                     </td>
-                                                    
+
                                                     <td>
                                                         <%= contratos[i].departamento %>
                                                     </td>
@@ -107,13 +106,43 @@
                                                             </span>
                                                             <span class="text">Editar</span>
                                                         </a>
-                                                        <a href="/delete_contrato/<%= contratos[i].id_contrato %>"
-                                                            class="btn btn-danger btn-icon-split btn-sm">
+                                                        <!-- Botón de eliminar -->
+                                                        <a href="#" class="btn btn-danger btn-icon-split btn-sm"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#eliminarContratoModal<%= contratos[i].id_contrato %>">
                                                             <span class="icon text-white-50">
                                                                 <i class="fas fa-trash"></i>
                                                             </span>
                                                             <span class="text">Eliminar</span>
                                                         </a>
+
+                                                        <!-- Modal de confirmación para eliminar contrato -->
+                                                        <div class="modal fade"
+                                                            id="eliminarContratoModal<%= contratos[i].id_contrato %>"
+                                                            tabindex="-1" aria-labelledby="eliminarContratoModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="eliminarContratoModalLabel">Confirmación
+                                                                            de eliminación
+                                                                        </h5>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        ¿Está seguro que desea eliminar el contrato "<%=
+                                                                            contratos[i].nombre_contrato %>"?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Cancelar</button>
+                                                                        <!-- Enlace para eliminar el contrato -->
+                                                                        <a href="/delete_contrato/<%= contratos[i].id_contrato %>"
+                                                                            class="btn btn-danger">Confirmar</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                     <td>
                                                         <a href="/contrato_archivos/<%= contratos[i].id_contrato %>"

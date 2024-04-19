@@ -1,99 +1,176 @@
-<%- include("partials/_header") %>
+<%- include("partials/_sidebar") %>
 
-  <script type="module" src="../datos/selectDepartamento.js"></script>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column bg-gray-900">
 
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-5 text-light offset-md-3 card bg-dark border-primary">
-        <div class="card-body">
-          <form action="/update_contrato/<%= contrato.id_contrato %>" method="POST">
-            <fieldset>
-              <legend>Modificar contrato</legend>
-              <div class="form-group">
-                <label for="" class="form-label mt-4">Nombre del contrato</label>
-                <input type="text" class="form-control" id="nombre_contrato" name="nombre_contrato"
-                  value="<%= contrato.nombre_contrato %>" placeholder="Nombre del contrato">
-              </div>
-              <div>
-                <label for="exampleTextarea" class="form-label mt-4">Descipcion del contrato</label>
-                <textarea class="form-control" id="descripcion" rows="3"
-                  name="descripcion"><%= contrato.descripcion %></textarea>
-              </div>
-              <div class="form-group">
-                <label for="exampleSelect1" class="form-label mt-4">Tipo de contrato</label>
-                <select class="form-select" id="tipo" name="tipo">
-                  <option>
-                    <%= contrato.nombre_tipo %>
-                  </option>
-                  <% tipo.forEach(tipo=> { %>
-                    <option>
-                      <%= tipo.nombre_tipo %>
-                    </option>
-                    <% }); %>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="" class="form-label mt-4">Valor del contrato</label>
-                <input type="number" class="form-control" id="valor" name="valor" value="<%= contrato.valor %>" placeholder="">
-              </div>
-              <div class="form-group">
-                <label for="exampleSelect1" class="form-label mt-4">Departamento</label>
-                <select class="form-select" id="departamento" name="departamento">
-                  <option>
-                    <%= contrato.departamento %>
-                  </option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="exampleSelect1" class="form-label mt-4">Responsable</label>
-                <select class="form-select" id="responsable" name="responsable">
-                  <option>
-                    <%= contrato.nombre %>
-                      <%= contrato.apellido %>
-                  </option>
-                  <% responsable.forEach(responsable=> { %>
-                    <option>
-                      <%= responsable.nombre %>
-                        <%= responsable.apellido %>
-                    </option>
-                    <% }); %>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="" class="form-label mt-4">Fecha de inicio</label>
-                <input type="date" class="form-control" id="fecha" name="fecha" value="<%= contrato.fecha %>"
-                  placeholder="">
-              </div>
-              <div class="form-group">
-                <label for="" class="form-label mt-4">Plazo</label>
-                <input type="date" class="form-control" id="plazo" name="plazo" value="<%= contrato.plazo %>"
-                  placeholder="">
-              </div>
-              <div class="form-group">
-                <label for="exampleSelect1" class="form-label mt-4">Estado</label>
-                <select class="form-select" id="estado" name="estado">
-                  <option>
-                    <%= contrato.nombre_estado %>
-                  </option>
-                  <% estado.forEach(estado=> { %>
-                    <option>
-                      <%= estado.nombre_estado %>
-                    </option>
-                    <% }); %>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="" class="form-label mt-4">Enlace Secop</label>
-                <input type="text" class="form-control" id="secop" name="secop" value="<%= contrato.secop %>"
-                  placeholder="">
-              </div>
-              <br>
-              <button type="submit" class="btn btn-primary">Editar</button>
-            </fieldset>
-          </form>
+        <!-- Main Content -->
+        <div id="content">
+
+            <%- include("partials/_header") %>
+
+                <script type="module" src="../datos/selectDepartamento.js"></script>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="container">
+                        <div class="card shadow mb-4 bg-gray-200">
+                            <div class="card-header py-3 bg-primary">
+                                <h6 class="m-0 font-weight-bold text-light">Panel de administración de Contratos</h6>
+                            </div>
+
+                            <div class="card-body p-4">
+                                <div class="responsive">
+                                    <form action="/update_contrato/<%= contrato.id_contrato %>" method="POST">
+                                        <legend>Modificar contrato</legend>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <label class="form-label mt-4">Nombre del contrato</label>
+                                                <input type="text" class="form-control" id="nombre_contrato"
+                                                    value="<%= contrato.nombre_contrato %>" name="nombre_contrato"
+                                                    placeholder="" autocomplete="off" required>
+                                            </div>
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <label for="exampleSelect1" class="form-label mt-4">Tipo de
+                                                    contrato</label>
+                                                <select class="form-control" id="tipo" name="tipo" required>
+                                                    <option>
+                                                        <%= contrato.nombre_tipo %>
+                                                    </option>
+                                                    <% const tiposFiltered=tipo.filter(tipo=> tipo.nombre_tipo !==
+                                                        contrato.nombre_tipo);
+                                                        tiposFiltered.forEach(tipo => { %>
+                                                        <option value="<%= tipo.nombre_tipo %>">
+                                                            <%= tipo.nombre_tipo %>
+                                                        </option>
+                                                        <% }); %>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <label class="form-label mt-4">Valor del contrato</label>
+                                                <input type="number" class="form-control" id="valor" name="valor"
+                                                    value="<%= contrato.valor %>">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <label for="exampleSelect1" class="form-label mt-4">Departamento</label>
+                                                <select class="form-control" id="departamento" name="departamento">
+                                                    <option>
+                                                        <%= contrato.departamento %>
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <label for="exampleSelect1" class="form-label mt-4">Responsable</label>
+                                                <select class="form-control" id="responsable" name="responsable">
+                                                    <option>
+                                                        <%= contrato.nombre %>
+                                                            <%= contrato.apellido %>
+                                                    </option>
+                                                    <% const agregados=new Set(); agregados.add(contrato.nombre +
+                                                        contrato.apellido); responsable.forEach(responsable=> {
+                                                        const nombreCompleto = responsable.nombre +
+                                                        responsable.apellido;
+                                                        if (!agregados.has(nombreCompleto)) {
+                                                        %>
+                                                        <option>
+                                                            <%= responsable.nombre %>
+                                                                <%= responsable.apellido %>
+                                                        </option>
+                                                        <% agregados.add(nombreCompleto); } }); %>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <label for="exampleSelect1" class="form-label mt-4">Estado</label>
+                                                <select class="form-control" id="estado" name="estado" required>
+                                                    <option>
+                                                        <%= contrato.nombre_estado %>
+                                                    </option>
+                                                    <% const estadosFiltered=estado.filter(est=> est.nombre_estado !==
+                                                        contrato.nombre_estado);
+                                                        estadosFiltered.forEach(est => { %>
+                                                        <option value="<%= est.nombre_estado %>">
+                                                            <%= est.nombre_estado %>
+                                                        </option>
+                                                        <% }); %>
+                                                </select>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <label for="" class="form-label mt-4">Fecha de inicio</label>
+                                                <input type="date" class="form-control" id="fecha" name="fecha"
+                                                    value="<%= contrato.fecha %>">
+                                            </div>
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <label class="form-label mt-4">Fecha de finalización</label>
+                                                <input type="date" class="form-control" id="plazo" name="plazo"
+                                                    value="<%= contrato.plazo %>">
+                                            </div>
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <label class="form-label mt-4">Enlace Secop</label>
+                                                <input type="text" class="form-control" id="secop" name="secop"
+                                                    value="<%= contrato.secop %>" placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-12 mb-3 mb-sm-0">
+                                                <label for="exampleTextarea" class="form-label mt-4">Descripción del
+                                                    contrato</label>
+                                                <textarea class="form-control" id="descripcion" rows="2"
+                                                    name="descripcion"><%= contrato.descripcion %></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <a href="/table_contratos" class="btn btn-danger btn-block">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-arrow-left"></i>
+                                                    </span><span>Descartar</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <button type="button" class="btn btn-primary btn-block"
+                                                    data-bs-toggle="modal" data-bs-target="#confirmModal">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-check"></i>
+                                                    </span><span>Editar</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="modal fade" id="confirmModal" tabindex="-1"
+                                            aria-labelledby="confirmModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="confirmModalLabel">Confirmación de
+                                                            edición
+                                                        </h5>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        ¿Estás seguro de que quieres editar este contrato?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Cancelar</button>
+                                                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+
         </div>
-      </div>
-    </div>
-  </div>
-
-  <%- include("partials/_footer") %>
+        <!-- End of Main Content -->
+        <%- include("partials/_footer") %>

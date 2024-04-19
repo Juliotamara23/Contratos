@@ -14,75 +14,77 @@
                 <div class="container-fluid">
 
                     <div class="container">
-                    <div class="card shadow mb-4 bg-gray-200">
-                        <div class="card-header py-3 bg-primary">
-                            <h6 class="m-0 font-weight-bold text-light">Panel de administración de usuarios</h6>
-                        </div>
+                        <div class="card shadow mb-4 bg-gray-200">
+                            <div class="card-header py-3 bg-primary">
+                                <h6 class="m-0 font-weight-bold text-light">Panel de administración de usuarios</h6>
+                            </div>
 
-                        <div class="card-body p-4">
-                            <div class="responsive">
-                                <form class="user" action="/add" method="post">
-                                    <legend>Registro de usuarios</legend>
-                                    <hr>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="" class="form-label mt-4">Número de identificación</label>
-                                            <input type="number" class="form-control" id="id" name="id" placeholder="">
+                            <div class="card-body p-4">
+                                <div class="responsive">
+                                    <form class="user" action="/add" method="post">
+                                        <legend>Registro de usuarios</legend>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label for="" class="form-label mt-4">Número de identificación</label>
+                                                <input type="number" class="form-control" id="id" name="id"
+                                                    placeholder="">
+                                            </div>
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label for="" class="form-label mt-4">Nombre</label>
+                                                <input type="text" class="form-control" id="nombre" name="nombre"
+                                                    placeholder="" autocomplete="off" required>
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="" class="form-label mt-4">Nombre</label>
-                                            <input type="text" class="form-control" id="nombre" name="nombre"
-                                                placeholder="Nombre">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label for="" class="form-label mt-4">Apellido</label>
+                                                <input type="text" class="form-control" id="apellido" name="apellido"
+                                                    placeholder="" autocomplete="off" required>
+                                            </div>
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label class="form-label mt-4">Teléfono</label>
+                                                <input type="number" class="form-control" id="telefono" name="telefono"
+                                                    placeholder="" autocomplete="off">
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="" class="form-label mt-4">Apellido</label>
-                                            <input type="text" class="form-control" id="apellido" name="apellido"
-                                                placeholder="Apellido">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label for="staticEmail" class="form-label mt-4">Correo</label>
+                                                <input type="email" class="form-control" id="correo" name="correo"
+                                                    required>
+                                            </div>
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label for="" class="form-label mt-4">Dirección</label>
+                                                <input type="text" class="form-control" id="direccion" name="direccion"
+                                                    placeholder="">
+                                            </div>
                                         </div>
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="exampleInputPassword1" class="form-label mt-4">Teléfono</label>
-                                            <input type="number" class="form-control" id="telefono" name="telefono"
-                                                placeholder="" autocomplete="off">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label for="exampleSelect1" class="form-label mt-4">Ciudad</label>
+                                                <select class="form-control" id="ciudad" name="ciudad">
+                                                    <option></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label for="exampleSelect1" class="form-label mt-4">Cargo</label>
+                                                <select class="form-control" id="rol" name="rol" required>
+                                                    <option value=''></option>
+                                                    <% roles.forEach(rol=> { %>
+                                                        <option>
+                                                            <%= rol.rol_nombre %>
+                                                        </option>
+                                                        <% }); %>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="staticEmail" class="form-label mt-4">Correo</label>
-                                            <input type="email" class="form-control" id="correo" name="correo">
-                                        </div>
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="" class="form-label mt-4">Dirección</label>
-                                            <input type="text" class="form-control" id="direccion" name="direccion"
-                                                placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="exampleSelect1" class="form-label mt-4">Ciudad</label>
-                                            <select class="form-control" id="ciudad" name="ciudad">
-                                                <option></option>
-                                            </select>
-                                        </div>
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <label for="exampleSelect1" class="form-label mt-4">Cargo</label>
-                                            <select class="form-control" id="rol" name="rol">
-                                                <option value=''>Seleccione un cargo</option>
-                                                <% roles.forEach(rol=> { %>
-                                                    <option>
-                                                        <%= rol.rol_nombre %>
-                                                    </option>
-                                                    <% }); %>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                    <button type="submit" class="btn btn-primary btn-block">Registrar</button>
-                                </form>
+                                        <hr>
+                                        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 <!-- /.container-fluid -->

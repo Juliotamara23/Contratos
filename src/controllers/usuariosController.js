@@ -70,10 +70,19 @@ export const updateUsuario = async (req, res) => {
 };
 
 export const deleteUsuario = async (req, res) => {
-  const { id } = req.params;
-  const result = await pool.query("DELETE FROM usuarios WHERE id = ?", [id]);
-  if (result.affectedRows === 1) {
-    res.json({ message: "Usuario eliminado" });
+
+  try {
+
+    const { id } = req.params;
+    const result = await pool.query("DELETE FROM usuarios WHERE id = ?", [id]);
+
+    if (result.affectedRows === 1) {
+      res.status(200).json({ success: true });
+    }
+  } catch (error) {
+    console.error('Error al eliminar el usuario:', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
   }
+
   res.redirect("/table_user");
 };
