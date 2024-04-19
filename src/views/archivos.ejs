@@ -1,35 +1,65 @@
-<%- include("partials/_header") %>
-  <br><br>
+<%- include("partials/_sidebar") %>
 
-  <div class="container mt-5">
-    <div class="row">
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column bg-gray-900">
 
-      <div class="col-md-5 text-light offset-md-3 card bg-dark border-primary">
-        <div class="card-body">
-          <legend> Adjuntar archivos </legend>
-          <form action="/add_archivos" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-              <label for="exampleSelect1" class="form-label mt-4">Contrato</label>
-              <select class="form-select" id="contrato" name="contrato">
-                <option value=''>Seleccione el contrato</option>
-                <% contrato.forEach(contrato=> { %>
-                  <option>
-                    <%= contrato.nombre_contrato %>
-                  </option>
-                  <% }); %>
-              </select>
-              <div>
-                <label for="formFile" class="form-label mt-4">Adjuntar archivos</label>
-                <input class="form-control" type="file" id="archivo_contrato" name="archivo_contrato" multiple>
-              </div>
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-          </form>
+        <!-- Main Content -->
+        <div id="content">
+
+            <%- include("partials/_header") %>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <div class="container">
+                        <div class="card shadow mb-4 bg-gray-200">
+                            <div class="card-header py-3 bg-primary">
+                                <h6 class="m-0 font-weight-bold text-light">Panel de administración de Contratos</h6>
+                            </div>
+                            <legend class="text-center bg-gray-900 text-light border-bottom-primary">Adjuntar archivos a
+                                un contrato</legend>
+                            <div class="card-body p-4">
+                                <div class="responsive">
+                                    <form action="/add_archivos" method="POST" enctype="multipart/form-data">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label for="exampleSelect1" class="form-label mt-4">Contrato</label>
+                                                <select class="form-control" id="contrato" name="contrato">
+                                                    <option value=''>Seleccione el contrato</option>
+                                                    <% contrato.forEach(contrato=> { %>
+                                                        <option>
+                                                            <%= contrato.nombre_contrato %>
+                                                        </option>
+                                                        <% }); %>
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <label for="formFile" class="form-label mt-4">Adjuntar archivos</label>
+                                                <input class="form-control btn btn-secondary btn-icon-split" type="file"
+                                                    id="archivo_contrato" name="archivo_contrato" multiple>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <a href="/table_contratos" class="btn btn-danger btn-block">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-arrow-left"></i>
+                                                    </span><span>Descartar</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
 
         </div>
-      </div>
-    </div>
-  </div>
-
-  <%- include("partials/_footer") %>
+        <!-- End of Main Content -->
+        <%- include("partials/_footer") %>
