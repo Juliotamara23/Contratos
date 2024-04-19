@@ -22,17 +22,16 @@
                             <div class="card-body p-4">
                                 <div class="responsive">
                                     <form action="/add_contrato" method="post">
-                                        <legend class="text-center">Registro de contratos</legend>
+                                        <legend class="text-center bg-gray-900 text-light border-bottom-primary">Registro de contratos</legend>
                                         <hr>
                                         <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label class="form-label mt-4">Nombre del contrato</label>
                                                 <input type="text" class="form-control" id="nombre_contrato"
                                                     name="nombre_contrato" placeholder="" autocomplete="off" required>
                                             </div>
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <label for="exampleSelect1" class="form-label mt-4">Tipo de
-                                                    contrato</label>
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <label for="exampleSelect1" class="form-label mt-4">Tipo de contrato</label>
                                                 <select class="form-control" id="tipo" name="tipo" required>
                                                     <option value=''></option>
                                                     <% tipo.forEach(tipo=> { %>
@@ -42,22 +41,20 @@
                                                         <% }); %>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label class="form-label mt-4">Valor del contrato</label>
                                                 <input type="number" class="form-control" id="valor" name="valor"
                                                     placeholder="$">
                                             </div>
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label for="exampleSelect1" class="form-label mt-4">Departamento</label>
                                                 <select class="form-control" id="departamento" name="departamento">
                                                     <option></option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label for="exampleSelect1" class="form-label mt-4">Responsable</label>
                                                 <select class="form-control" id="responsable" name="responsable">
                                                     <option value=''></option>
@@ -69,14 +66,7 @@
                                                         <% }); %>
                                                 </select>
                                             </div>
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <label class="form-label mt-4">Enlace Secop</label>
-                                                <input type="text" class="form-control" id="secop" name="secop"
-                                                    placeholder="">
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label for="exampleSelect1" class="form-label mt-4">Estado</label>
                                                 <select class="form-control" id="estado" name="estado" required>
                                                     <option value=''></option>
@@ -87,32 +77,49 @@
                                                         <% }); %>
                                                 </select>
                                             </div>
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label for="" class="form-label mt-4">Fecha de inicio</label>
                                                 <input type="date" class="form-control" id="fecha" name="fecha">
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label class="form-label mt-4">Fecha de finalización</label>
                                                 <input type="date" class="form-control" id="plazo" name="plazo">
                                             </div>
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
+                                                <label class="form-label mt-4">Enlace Secop</label>
+                                                <input type="text" class="form-control" id="secop" name="secop"
+                                                    placeholder="">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 my-3 mb-sm-0">
                                                 <label for="formFile" class="form-label mt-4">Adjuntar
                                                     archivos</label>
                                                 <input class="form-control btn btn-secondary btn-icon-split" type="file"
                                                     id="archivo_contrato" name="archivo_contrato" multiple>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-12 mb-3 mb-sm-0">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <label for="exampleTextarea" class="form-label mt-4">Descripción del
                                                     contrato</label>
-                                                <textarea class="form-control" id="descripcion" rows="3"
+                                                <textarea class="form-control" id="descripcion" rows="2"
                                                     name="descripcion"></textarea>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                                        <hr>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <a href="/table_contratos" class="btn btn-danger btn-block">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-arrow-left"></i>
+                                                    </span><span>Descartar</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

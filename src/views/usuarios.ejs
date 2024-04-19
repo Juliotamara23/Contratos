@@ -22,39 +22,36 @@
                             <div class="card-body p-4">
                                 <div class="responsive">
                                     <form class="user" action="/add" method="post">
-                                        <legend>Registro de usuarios</legend>
-                                        <hr>
+                                        <legend class="text-center bg-gray-900 text-light border-bottom-primary">Registro de usuarios</legend>
                                         <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label for="" class="form-label mt-4">Número de identificación</label>
                                                 <input type="number" class="form-control" id="id" name="id"
                                                     placeholder="">
                                             </div>
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label for="" class="form-label mt-4">Nombre</label>
                                                 <input type="text" class="form-control" id="nombre" name="nombre"
                                                     placeholder="" autocomplete="off" required>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label for="" class="form-label mt-4">Apellido</label>
                                                 <input type="text" class="form-control" id="apellido" name="apellido"
                                                     placeholder="" autocomplete="off" required>
                                             </div>
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label class="form-label mt-4">Teléfono</label>
                                                 <input type="number" class="form-control" id="telefono" name="telefono"
                                                     placeholder="" autocomplete="off">
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label for="staticEmail" class="form-label mt-4">Correo</label>
                                                 <input type="email" class="form-control" id="correo" name="correo"
                                                     required>
                                             </div>
-                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                            <div class="col-sm-4 mb-3 mb-sm-0">
                                                 <label for="" class="form-label mt-4">Dirección</label>
                                                 <input type="text" class="form-control" id="direccion" name="direccion"
                                                     placeholder="">
@@ -80,7 +77,18 @@
                                             </div>
                                         </div>
                                         <hr>
-                                        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                                        <div class="form-group row">
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <a href="/table_user" class="btn btn-danger btn-block">
+                                                    <span class="icon text-white-50">
+                                                        <i class="fas fa-arrow-left"></i>
+                                                    </span><span>Descartar</span>
+                                                </a>
+                                            </div>
+                                            <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                             </div>

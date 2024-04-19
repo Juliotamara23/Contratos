@@ -22,7 +22,7 @@
                             <div class="card-body p-4">
                                 <div class="responsive">
                                     <form action="/update_contrato/<%= contrato.id_contrato %>" method="POST">
-                                        <legend>Modificar contrato</legend>
+                                        <legend class="text-center bg-gray-900 text-light border-bottom-primary">Modificar contrato</legend>
                                         <hr>
                                         <div class="form-group row">
                                             <div class="col-sm-4 mb-3 mb-sm-0">
@@ -32,8 +32,7 @@
                                                     placeholder="" autocomplete="off" required>
                                             </div>
                                             <div class="col-sm-4 mb-3 mb-sm-0">
-                                                <label for="exampleSelect1" class="form-label mt-4">Tipo de
-                                                    contrato</label>
+                                                <label for="exampleSelect1" class="form-label mt-4">Tipo de contrato</label>
                                                 <select class="form-control" id="tipo" name="tipo" required>
                                                     <option>
                                                         <%= contrato.nombre_tipo %>
@@ -125,6 +124,7 @@
                                                     name="descripcion"><%= contrato.descripcion %></textarea>
                                             </div>
                                         </div>
+                                        <hr>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
                                                 <a href="/table_contratos" class="btn btn-danger btn-block">
@@ -142,7 +142,6 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <hr>
                                         <div class="modal fade" id="confirmModal" tabindex="-1"
                                             aria-labelledby="confirmModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered">
