@@ -249,3 +249,17 @@ export const contratoArchivos = async (req, res) => {
     res.status(500).json({ error: 'Error interno del servidor' });
   }
 };
+
+export const listArchivos = async (req, res) => {
+  const [rows] = await pool.query("SELECT archivos.*, contrato.nombre_contrato FROM archivos LEFT JOIN contrato ON archivos.contrato_id = contrato.id_contrato;");
+  res.render("tabla_archivos", { archivos: rows });
+};
+
+export const deleteArchivo = async (req, res) => {
+  const { id_archivo } = req.params;
+  const result = await pool.query("DELETE FROM archivos WHERE id_archivo = ?", [id_archivo]);
+  if (result.affectedRows === 1) {
+    res.json({ message: "Archivo eliminado" });
+  }
+  res.redirect("/table_archivos");
+};
