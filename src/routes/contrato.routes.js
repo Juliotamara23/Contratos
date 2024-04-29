@@ -12,6 +12,8 @@ import {
   upload,
   subirArchivos,
   contratoArchivos,
+  listArchivos,
+  deleteArchivo,
 } from "../controllers/contratosController.js";
 const router = Router();
 
@@ -26,5 +28,7 @@ router.post("/update_contrato/:id_contrato", updateContrato);
 router.get("/delete_contrato/:id_contrato", deleteContrato);
 router.get("/contrato_archivos/:id_contrato", subirArchivos);
 router.post("/add_archivos_contrato/:id_contrato",upload, contratoArchivos);
+router.get("/table_archivos", listArchivos);
+router.get("/delete_archivo/:id_archivo", deleteArchivo);
 
 export default router;
