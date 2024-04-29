@@ -1,0 +1,111 @@
+<%- include("partials/_sidebar") %>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column bg-gray-900">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <%- include("partials/_header") %>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <br><br>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4 bg-gray-200">
+                        <div class="card-header py-3 bg-primary">
+                            <h6 class="m-0 font-weight-bold text-light">Panel de administración de archivos</h6>
+                        </div>
+                        <legend class="text-center bg-gray-900 text-light border-bottom-primary">Tabla de archivos</legend>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover nowrap" id="dataTable" width="100%"
+                                    cellspacing="0">
+                                    <thead class="text-center bg-gray-900 text-light">
+                                        <tr>
+                                            <th>Nombre del Documento</th>
+                                            <th>Id del contrato</th>
+                                            <th>Nombre del contrato</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                        <% if (archivos) { %>
+                                            <% for(var i=0; i < archivos.length; i++) { %>
+                                                <tr>
+                                                    <td>
+                                                        <div class="col-md-auto">
+                                                            <%= archivos[i].nombre_original %>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-md-auto">
+                                                            <%= archivos[i].contrato_id %>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="col-md-auto">
+                                                            <%= archivos[i].nombre_contrato %>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/update_archivo/<%= archivos[i].id_archivo %>"
+                                                            class="btn btn-primary btn-icon-split btn-sm">
+                                                            <span class="icon text-white-50">
+                                                                <i class="fas fa-arrow-down"></i>
+                                                            </span>
+                                                            <span class="text">Descargar</span>
+                                                        </a>
+                                                        <!-- Botón de eliminar -->
+                                                        <button href="#" class="btn btn-danger btn-icon-split btn-sm"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#eliminarContratoModal<%= archivos[i].id_archivo %>">
+                                                            <span class="icon text-white-50">
+                                                                <i class="fas fa-trash"></i>
+                                                            </span>
+                                                            <span class="text">Eliminar</span>
+                                                        </button>
+
+                                                        <!-- Modal de confirmación para eliminar contrato -->
+                                                        <div class="modal fade"
+                                                            id="eliminarContratoModal<%= archivos[i].id_archivo %>"
+                                                            tabindex="-1" aria-labelledby="eliminarContratoModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title"
+                                                                            id="eliminarContratoModalLabel">Confirmar de eliminación
+                                                                        </h5>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        ¿Está seguro que desea eliminar el documento "<%=
+                                                                            archivos[i].nombre_original %>"?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-bs-dismiss="modal">Cancelar</button>
+                                                                        <!-- Enlace para eliminar el contrato -->
+                                                                        <a href="/delete_archivo/<%= archivos[i].id_archivo %>"
+                                                                            class="btn btn-danger">Confirmar</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+                                                    <% } %>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <%- include("partials/_footer") %>
